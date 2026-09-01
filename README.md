@@ -1,86 +1,141 @@
-# 🌾 FarmTech Solutions — Cap 01, Fase 5: Machine Learning na Cabeça
+# 🌾 FarmTech Solutions — Fase 5: Machine Learning na Cabeça
 
-PBL de Inteligência Artificial — FIAP
+**PBL de Inteligência Artificial — FIAP | Cap 01, Fase 5**
 
-## Sobre o Projeto
-
-A FarmTech Solutions é uma startup acadêmica fictícia da disciplina de IA na FIAP.
-Esta é a quinta fase de um projeto contínuo:
-
-| Fase | Entrega | Repositório |
-|---|---|---|
-| 2 | Sistema IoT com ESP32 — sensores de umidade, pH (LDR), P/K e bomba por relé | [fiap04cap1](https://github.com/kainan-beep/fiap04cap1) |
-| 3 | Banco relacional Oracle + dashboard Streamlit de monitoramento | [fiap04cap1](https://github.com/kainan-beep/fiap04cap1) |
-| 4 | Machine Learning (Scikit-Learn) sobre os dados dos sensores, integrado ao dashboard | [fiap04cap1](https://github.com/kainan-beep/fiap04cap1) |
-| **5** | **Previsão de rendimento de safra + tendências por clusterização + estimativa de custos AWS** | **este repositório** |
-
-Na Fase 5, a FarmTech presta serviço de IA a uma fazenda de médio porte (200 hectares)
-que produz várias culturas. A partir de dados de solo e clima, o objetivo é **prever o
-rendimento da safra** (aprendizado supervisionado) e **explorar tendências de
-produtividade** (aprendizado não supervisionado).
+| Integrante | RM |
+|---|---|
+| Kainan Bilibio Aguiar | 570594 |
+| Guilherme C. Ávila | 571294 |
 
 ---
 
-## Entrega 1 — Machine Learning
+## Sobre o projeto
 
-Todo o desenvolvimento, a análise e as conclusões estão no notebook:
+A FarmTech Solutions é uma startup acadêmica fictícia que presta serviços de
+Inteligência Artificial ao agronegócio. Nesta fase, o cliente é uma fazenda de
+**200 hectares** — cerca de 210 campos de futebol oficiais — que cultiva quatro
+culturas tropicais simultaneamente e coleta dados de solo e clima por sensores em
+campo.
 
-📓 _(link a preencher quando o notebook estiver no repositório)_
+A pergunta de negócio é direta: **dadas as condições medidas, qual será o
+rendimento da safra?**
 
-O notebook cobre, em ordem:
+Este repositório entrega duas frentes:
 
-1. Análise exploratória da base `crop_yield.csv`
-2. Clusterização para identificar tendências de rendimento e cenários discrepantes (outliers)
-3. Cinco modelos preditivos de regressão, cada um com algoritmo diferente, com avaliação comparativa
+| Entrega | O que é | Onde está |
+|---|---|---|
+| **1 — Machine Learning** | Análise exploratória, clusterização, detecção de outliers e cinco modelos preditivos sobre a base `crop_yield.csv` | [Notebook Jupyter](#-entrega-1--machine-learning) |
+| **2 — Computação em Nuvem** | Estimativa de custos na AWS para hospedar a API de sensores e o modelo, comparando São Paulo e Norte da Virgínia | [Seção neste README](#-entrega-2--computação-em-nuvem-aws) |
 
-### Base de dados
+### Continuidade do projeto
 
-`dados/crop_yield.csv` — uma linha por observação:
+Este é o quinto capítulo de um trabalho contínuo. As fases anteriores estão em
+[**kainan-beep/fiap04cap1**](https://github.com/kainan-beep/fiap04cap1):
 
-| Variável | Descrição |
+| Fase | Entrega |
 |---|---|
-| Cultura | Nome da safra cujo rendimento está sendo medido |
-| Precipitação (mm dia⁻¹) | Quantidade de chuva em milímetros por dia |
-| Umidade específica a 2 m (g/kg) | Vapor de água por quilograma de ar seco, a 2 m do solo |
-| Umidade relativa a 2 m (%) | Vapor de água como % do máximo suportado naquela temperatura/pressão |
-| Temperatura a 2 m (°C) | Temperatura a 2 m acima do solo |
-| Rendimento (ton/ha) | **Variável alvo** — rendimento em toneladas por hectare |
+| 2 | Sistema IoT com ESP32 — sensores de umidade do solo, pH via LDR, presença de fósforo e potássio, bomba de irrigação por relé |
+| 3 | Banco relacional Oracle e dashboard de monitoramento em Streamlit |
+| 4 | Machine Learning sobre os dados dos sensores, integrado ao dashboard |
+| **5** | **Este repositório** |
+
+---
+
+## 📓 Entrega 1 — Machine Learning
+
+### ➡️ [**Abrir o notebook: `KainanBilibioAguiar_rm570594_pbl_fase4.ipynb`**](KainanBilibioAguiar_rm570594_pbl_fase4.ipynb)
+
+Todo o desenvolvimento, as análises, os achados e as conclusões estão no
+notebook. Ele é o documento principal desta entrega e está organizado em quatro
+blocos, com todas as células executadas e os resultados salvos:
+
+| Bloco | Conteúdo |
+|---|---|
+| **1. Análise exploratória** | Estrutura e qualidade da base, padronização das variáveis, correção da unidade do alvo, distribuições e análise de correlação |
+| **2. Clusterização e outliers** | K-Means com escolha de `k` justificada por cotovelo e silhueta, projeção PCA, e detecção de cenários discrepantes por três critérios independentes |
+| **3. Modelagem preditiva** | Cinco algoritmos de regressão comparados sob validação cruzada agrupada, com análise de resíduos e importância de variáveis |
+| **4. Conclusões** | Respostas às perguntas do projeto, pontos fortes, limitações e recomendações à fazenda |
+
+> **Sobre o nome do arquivo.** O sufixo `pbl_fase4` segue literalmente o padrão
+> de nomeação exigido no enunciado da Fase 5.
+
+### A base de dados
+
+`dados/crop_yield.csv` — 156 linhas, 6 colunas, sem valores ausentes.
+
+| Variável | Descrição | Unidade |
+|---|---|---|
+| `Crop` | Cultura para a qual o rendimento é medido | — |
+| `Precipitation` | Quantidade de chuva | mm/dia |
+| `Specific Humidity at 2 Meters` | Vapor de água por quilograma de ar seco, a 2 m do solo | g/kg |
+| `Relative Humidity at 2 Meters` | Vapor de água como % do máximo suportado | % |
+| `Temperature at 2 Meters` | Temperatura a 2 m acima do solo | °C |
+| `Yield` | **Variável alvo** — rendimento da safra | hg/ha |
+
+As quatro culturas são cacau em amêndoas, fruto de dendê, arroz em casca e
+borracha natural, com 39 observações cada.
+
+> ⚠️ **A unidade do alvo diverge do enunciado.** O enunciado descreve o
+> rendimento em toneladas por hectare, mas os valores da coluna vão de 5.249 a
+> 203.399 — impossível em t/ha. O notebook documenta a investigação e a correção
+> aplicada. Essa checagem mudou a interpretação de todas as métricas de erro do
+> trabalho.
 
 ### Como executar
 
 ```bash
+# 1. Criar o ambiente e instalar as dependências
+python3 -m venv .venv
+source .venv/bin/activate          # no Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-jupyter notebook
+
+# 2. Abrir o notebook a partir da raiz do repositório
+jupyter notebook KainanBilibioAguiar_rm570594_pbl_fase4.ipynb
 ```
 
-🎥 **Vídeo — Entrega 1:** _(link a preencher)_
+O notebook lê o CSV por caminho relativo (`dados/crop_yield.csv`), então precisa
+ser executado a partir da raiz do repositório. Todas as células já vêm executadas
+— basta abrir para ver os resultados.
+
+### 🎥 Vídeo demonstrativo — Entrega 1
+
+_(link a preencher)_
 
 ---
 
-## Entrega 2 — Estimativa de Custos na AWS
+## ☁️ Entrega 2 — Computação em Nuvem (AWS)
 
-_(seção a preencher: comparação São Paulo × Norte da Virgínia, prints da calculadora
-em `assets/aws/`, e a justificativa de escolha considerando latência e LGPD)_
+_(seção a preencher: comparação de custos entre São Paulo e Norte da Virgínia,
+prints da calculadora AWS em `assets/aws/`, e a justificativa de escolha
+considerando latência de acesso aos sensores e restrições legais de armazenamento
+de dados no exterior)_
 
-🎥 **Vídeo — Entrega 2:** _(link a preencher)_
+### 🎥 Vídeo demonstrativo — Entrega 2
+
+_(link a preencher)_
 
 ---
 
-## Estrutura do Repositório
+## Estrutura do repositório
 
 ```
 fiap05cap1/
-├── README.md
-├── requirements.txt
+├── README.md                                     Este arquivo
+├── requirements.txt                              Dependências Python
+├── KainanBilibioAguiar_rm570594_pbl_fase4.ipynb  Notebook da Entrega 1
 ├── dados/
-│   └── crop_yield.csv          Base fornecida pela FIAP
+│   └── crop_yield.csv                            Base fornecida pela FIAP
 └── assets/
-    └── aws/                    Prints da calculadora AWS (Entrega 2)
+    ├── aws/                                      Prints da calculadora (Entrega 2)
+    └── graficos/                                 Gráficos de apoio
 ```
 
----
+## Tecnologias
 
-## Integrantes
+`Python 3.13` · `pandas` · `NumPy` · `scikit-learn` · `Matplotlib` · `seaborn` · `Jupyter`
 
-- Kainan Bilibio Aguiar — RM570594
-- Guilherme C. Ávila — RM571294
+## Referências
+
+- FAOSTAT — Food and Agriculture Organization, base de dados de produção agrícola
+- Scikit-Learn — documentação oficial
+- EMBRAPA — Agricultura Digital
