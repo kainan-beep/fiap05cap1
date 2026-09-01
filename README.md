@@ -45,6 +45,10 @@ Este é o quinto capítulo de um trabalho contínuo. As fases anteriores estão 
 
 ### ➡️ [**Abrir o notebook: `KainanBilibioAguiar_rm570594_pbl_fase4.ipynb`**](KainanBilibioAguiar_rm570594_pbl_fase4.ipynb)
 
+> Se o GitHub demorar a renderizar o notebook, use o espelho no
+> **[nbviewer](https://nbviewer.org/github/kainan-beep/fiap05cap1/blob/main/KainanBilibioAguiar_rm570594_pbl_fase4.ipynb)**,
+> que exibe o mesmo arquivo com todos os gráficos e saídas.
+
 Todo o desenvolvimento, as análises, os achados e as conclusões estão no
 notebook. Ele é o documento principal desta entrega e está organizado em quatro
 blocos, com todas as células executadas e os resultados salvos:
@@ -103,7 +107,7 @@ _(link a preencher)_
 
 ---
 
-## ☁️ Entrega 2 — Computação em Nuvem (AWS)
+## 💰 Entrega 2 — Computação em Nuvem (AWS)
 
 O modelo desenvolvido na Entrega 1 precisa sair do notebook e ir para produção.
 A arquitetura pretendida é uma **API que recebe os dados dos sensores instalados
@@ -264,8 +268,11 @@ fiap05cap1/
 ├── dados/
 │   └── crop_yield.csv                            Base fornecida pela FIAP
 └── assets/
-    ├── aws/                                      Prints da calculadora (Entrega 2)
-    └── graficos/                                 Gráficos de apoio
+    └── aws/
+        ├── comparativo-custos.png                Gráfico da comparação de custos
+        ├── 01-sao-paulo-resumo.png               Resumo da estimativa — São Paulo
+        ├── 01-sao-paulo-config.png               Configuração detalhada — São Paulo
+        └── 02-virginia-resumo.png                Resumo da estimativa — Virgínia
 ```
 
 ## Tecnologias
