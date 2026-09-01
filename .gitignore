@@ -28,3 +28,9 @@ Thumbs.db
 
 # Material interno de trabalho (roteiros de video, checklist) - nao vai para a entrega
 docs/_interno/
+
+# Material de apoio a gravacao - nunca deve chegar ao repositorio publico
+roteiro*
+ROTEIRO*
+*roteiro*.md
+rascunho*
