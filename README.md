@@ -103,7 +103,7 @@ ser executado a partir da raiz do repositório. Todas as células já vêm execu
 
 ### 🎥 Vídeo demonstrativo — Entrega 1
 
-_(link a preencher)_
+https://youtu.be/9BBt9a5Rvyk
 
 ---
 
@@ -254,7 +254,7 @@ brasileiro e responde a decisões operacionais em campo, a escolha é
 
 ### 🎥 Vídeo demonstrativo — Entrega 2
 
-_(link a preencher)_
+https://youtu.be/ygtqd2qJmjc
 
 ---
 
