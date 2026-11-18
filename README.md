@@ -2,10 +2,10 @@
 
 **PBL de Inteligência Artificial — FIAP | Cap 01, Fase 5**
 
-| Integrante | RM |
-|---|---|
-| Kainan Bilibio Aguiar | 570594 |
-| Guilherme C. Ávila | 571294 |
+| Integrante |
+|---|
+| Kainan Bilibio Aguiar |
+| Guilherme C. Ávila |
 
 ---
 
